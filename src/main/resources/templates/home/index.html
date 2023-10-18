@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"  >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>HKC Shop</title>
+    <th:block th:replace="layout :: link-css"></th:block>
+</head>
+<body>
+<th:block th:replace="layout :: header"></th:block>
+<div>
+    <div class="main_slider" style="background-image:url(/images/AnyConv.com__banner\ 8.png)">
+        <div class="container fill_height">
+            <div class="row align-items-center fill_height">
+                <div class="col">
+                    <div class="main_slider_content">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Banner -->
+    <div class="banner">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="banner_item align-items-center" style="background-image:url(/images/iphoneb.jpg)">
+                        <div class="banner_category">
+                            <a href="/shop/brand/1">apple</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="banner_item align-items-center" style="background-image:url(/images/samsungb.jpg)">
+                        <div class="banner_category">
+                            <a href="/shop/brand/2">samsung</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="banner_item align-items-center" style="background-image:url(/images/xiaomib.jpg)">
+                        <div class="banner_category">
+                            <a href="/shop/brand/3">xiaomi</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- New Arrivals -->
+
+    <div class="new_arrivals">
+        <div class="container">
+            <div class="row">
+                <div class="col text-center">
+                    <div class="section_title new_arrivals_title">
+                        <h2>Sản Phẩm Nổi Bật</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row align-items-center">
+                <div class="col text-center">
+                    <div class="new_arrivals_sorting">
+                        <ul class="arrivals_grid_sorting clearfix button-group filters-button-group">
+                            <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center active is-checked" data-filter="*">tất cả</li>
+                            <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center" data-filter=".Cate-1">điện thoại</li>
+                            <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center" data-filter=".Cate-2">máy tính bảng</li>
+                            <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center" data-filter=".Cate-3">phụ kiện</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="product-grid" data-isotope='{ "itemSelector": ".product-item", "layoutMode": "fitRows" }' >
+                        <div th:each="product : ${products}">
+                            <div th:class="'product-item Cate-'+${product.category.id}">
+                                <div class="product product_filter">
+                                    <div class="product_image">
+                                        <img th:src="@{${product.image}}" alt="">
+                                    </div>
+                                    <div class="favorite favorite_left"></div>
+                                    <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center" th:if="${product.discount}>0" ><span th:text="-${product.discount}+'%'"></span></div>
+                                    <div class="product_info">
+                                        <h6 class="product_name"><a th:href="@{/shop/product/{id}(id=${product.getId()})}" th:text="${product.name}"></a></h6>
+                                        <div class="product_price" th:text="${#numbers.formatDecimal(product.price-(product.price*(product.discount)/100), 1, 'DEFAULT', 2, 'DEFAULT')+'đ'}" ></div>
+                                        <div class="product_price" th:if="${product.discount}>0"  > <span th:text="${#numbers.formatDecimal(product.price, 1, 'DEFAULT', 2, 'DEFAULT')+'đ'}"></span></div>
+                                    </div>
+                                </div>
+                                <form th:action="@{/add-to-cart}" method="post">
+                                    <input type="hidden" name="id" th:value="${product.id}">
+                                    <input type="hidden" name="name" th:value="${product.name}">
+                                    <input type="hidden" name="image" th:value="${product.image}">
+                                    <input type="hidden" name="price" th:value="${product.price}">
+                                    <input class="red_button add_to_cart_button" style="border: none;color: #FFFFFF;text-transform: uppercase;font-size: 14px;font-weight: 500;text-align: center;line-height: 40px;" type="submit" value="thêm vào giỏ hàng">
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Deal of the week -->
+
+    <div class="deal_ofthe_week">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="deal_ofthe_week_img">
+                        <img src="/images/ImagesUpload/empty-smartphone-hand-colored-blue-banner-background-mockup-phone-blank-screen-minimal-high-quality-photo-225053370.jpg" alt="">
+                    </div>
+                </div>
+                <div class="col-lg-6 text-right deal_ofthe_week_col">
+                    <div class="deal_ofthe_week_content d-flex flex-column align-items-center float-right">
+                        <div class="section_title">
+                            <h2>Khuyến Mãi Trong Tuần</h2>
+                        </div>
+                        <ul class="timer">
+                            <li class="d-inline-flex flex-column justify-content-center align-items-center">
+                                <div id="day" class="timer_num">03</div>
+                                <div class="timer_unit">Ngày</div>
+                            </li>
+                            <li class="d-inline-flex flex-column justify-content-center align-items-center">
+                                <div id="hour" class="timer_num">15</div>
+                                <div class="timer_unit">Giờ</div>
+                            </li>
+                            <li class="d-inline-flex flex-column justify-content-center align-items-center">
+                                <div id="minute" class="timer_num">45</div>
+                                <div class="timer_unit">Phút</div>
+                            </li>
+                            <li class="d-inline-flex flex-column justify-content-center align-items-center">
+                                <div id="second" class="timer_num">23</div>
+                                <div class="timer_unit">Giây</div>
+                            </li>
+                        </ul>
+                        <div class="red_button deal_ofthe_week_button"><a href="#">Mua Ngay</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Best Sellers -->
+
+    <div class="best_sellers">
+        <div class="container">
+            <div class="row">
+                <div class="col text-center">
+                    <div class="section_title new_arrivals_title">
+                        <h2>Bán Chạy Nhất</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="product_slider_container">
+                        <div class="owl-carousel owl-theme product_slider">
+                            <div class="owl-item product_slider_item" th:each="product : ${products}">
+                                <div class="product-item">
+                                    <div class="product discount">
+                                        <div class="product_image">
+                                            <img th:src="@{${product.image}}" alt="">
+                                        </div>
+                                        <div class="favorite favorite_left"></div>
+                                        <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center" th:if="${product.discount}>0" ><span th:text="-${product.discount}+'%'"></span></div>
+                                        <div class="product_info">
+                                            <h6 class="product_name"><a th:href="@{/shop/product/{id}(id=${product.getId()})}" th:text="${product.name}"></a></h6>
+
+                                            <div class="product_price" th:text="${#numbers.formatDecimal(product.price-(product.price*(product.discount)/100), 1, 'DEFAULT', 2, 'DEFAULT')+'đ'}" ></div>
+                                            <div class="product_price" th:if="${product.discount}>0"  > <span th:text="${#numbers.formatDecimal(product.price, 1, 'DEFAULT', 2, 'DEFAULT')+'đ'}"></span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- Slider Navigation -->
+
+                        <div class="product_slider_nav_left product_slider_nav d-flex align-items-center justify-content-center flex-column">
+                            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                        </div>
+                        <div class="product_slider_nav_right product_slider_nav d-flex align-items-center justify-content-center flex-column">
+                            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Benefit -->
+
+    <div class="benefit">
+        <div class="container">
+            <div class="row benefit_row">
+                <div class="col-lg-3 benefit_col">
+                    <div class="benefit_item d-flex flex-row align-items-center">
+                        <div class="benefit_icon"><i class="fa fa-truck" aria-hidden="true"></i></div>
+                        <div class="benefit_content">
+                            <h6>miễn phí vận chuyển</h6>
+                            <p>Freeship trên toàn quốc</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 benefit_col">
+                    <div class="benefit_item d-flex flex-row align-items-center">
+                        <div class="benefit_icon"><i class="fa fa-money" aria-hidden="true"></i></div>
+                        <div class="benefit_content">
+                            <h6>trả góp 0%</h6>
+                            <p>Nhanh chóng trong 15 phút chỉ cần CCCD, bằng lái xe</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 benefit_col">
+                    <div class="benefit_item d-flex flex-row align-items-center">
+                        <div class="benefit_icon"><i class="fa fa-undo" aria-hidden="true"></i></div>
+                        <div class="benefit_content">
+                            <h6>15 ngày đổi trả</h6>
+                            <p>Đổi ngay máy mới nếu lỗi từ nhà sản xuất</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 benefit_col">
+                    <div class="benefit_item d-flex flex-row align-items-center">
+                        <div class="benefit_icon"><i class="fa fa-clock-o" aria-hidden="true"></i></div>
+                        <div class="benefit_content">
+                            <h6>mở cửa tất cả các ngày trong tuần</h6>
+                            <p>8AM - 9PM</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Blogs -->
+
+    <div class="blogs mb-5">
+        <div class="container">
+            <div class="row">
+                <div class="col text-center">
+                    <div class="section_title">
+                        <h2>Bài Viết Mới Nhất</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row blogs_container">
+                <div class="col-lg-4 blog_item_col">
+                    <div class="blog_item">
+                        <div class="blog_background" style="background-image:url(/images/meta-facebook-218x150.jpg)"></div>
+                        <div class="blog_content d-flex flex-column align-items-center justify-content-center text-center">
+                            <h4 class="blog_title">Meta chấm dứt hoạt động NFT trên Instagram và Facebook</h4>
+                            <span class="blog_meta">by admin | march 14, 2023</span>
+                            <a class="blog_more" href="#">Đọc thêm</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 blog_item_col">
+                    <div class="blog_item">
+                        <div class="blog_background" style="background-image:url(/images/iOS-16-Siri-Guide-Feature-218x150.jpg)"></div>
+                        <div class="blog_content d-flex flex-column align-items-center justify-content-center text-center">
+                            <h4 class="blog_title">Các tính năng ẩn của iOS 16 nhất định phải biết trên iPhone</h4>
+                            <span class="blog_meta">by admin | march 15, 2023</span>
+                            <a class="blog_more" href="#">Đọc thêm</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 blog_item_col">
+                    <div class="blog_item">
+                        <div class="blog_background" style="background-image:url(/images/887-218x150.png)"></div>
+                        <div class="blog_content d-flex flex-column align-items-center justify-content-center text-center">
+                            <h4 class="blog_title">[CHÍNH THỨC] Ra mắt Galaxy A34 & Galaxy A54</h4>
+                            <span class="blog_meta">by admin | march 15, 2023</span>
+                            <a class="blog_more" href="#">Đọc thêm</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<th:block th:replace="layout :: footer"></th:block>
+</body>
+</html>

@@ -1,0 +1,67 @@
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <title>Quản lý cửa hàng</title>
+  <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+  <link  rel="stylesheet" th:href="@{/admin/css/styles.css}">
+  <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
+</head>
+<body class="sb-nav-fixed">
+<th:block th:replace="layoutadmin :: topnav"></th:block>
+<div id="layoutSidenav">
+  <th:block th:replace="layoutadmin :: layoutSidenav_nav"></th:block>
+  <div id="layoutSidenav_content">
+    <main>
+      <h1>Edit Category</h1>
+      <form th:action="@{/admin/category/edit}" th:object="${category}" method="post" enctype="multipart/form-data">
+        <input type="hidden" th:field="*{id}">
+        <div class="col-6 mb-3">
+          <label class="form-label" for="name">Name</label>
+          <input class="form-control" type="text" th:field="*{name}" id="name">
+          <span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+        </div>
+        <div class="col-6 mb-3">
+          <label class="form-label" for="createdBy">Created_by</label>
+          <input class="form-control" type="text" th:field="*{createdBy}" id="createdBy">
+          <!--          <span class="text-danger" th:if="${#fields.hasErrors('createdBy')}" th:errors="*{createdBy}"></span>-->
+        </div>
+        <div class="col-6 mb-3">
+          <label class="form-label" for="createdDate">CreatedDate</label>
+          <input class="form-control" type="datetime-local" th:field="*{createdDate}" id="createdDate">
+          <!--          <span class="text-danger" th:if="${#fields.hasErrors('createdDate')}" th:errors="*{createdDate}"></span>-->
+        </div>
+        <div class="col-6 mb-3">
+          <label class="form-label" for="status">Status</label>
+          <input class="form-control" type="text" th:field="*{status}" id="status">
+          <!--          <span class="text-danger" th:if="${#fields.hasErrors('status')}" th:errors="*{status}"></span>-->
+        </div>
+        <div class="col-6 mb-3">
+          <label class="form-label" for="updatedBy">UpdatedBy</label>
+          <input class="form-control" type="text" th:field="*{updatedBy}" id="updatedBy">
+          <!--          <span class="text-danger" th:if="${#fields.hasErrors('updatedBy')}" th:errors="*{updatedBy}"></span>-->
+        </div>
+        <div class="col-6 mb-3">
+          <label class="form-label" for="updatedDate">UpdatedDate</label>
+          <input class="form-control" type="datetime-local" th:field="*{updatedDate}" id="updatedDate">
+          <!--          <span class="text-danger" th:if="${#fields.hasErrors('updatedDate')}" th:errors="*{updatedDate}"></span>-->
+        </div>
+        <input type="submit" class="btn btn-primary" value="Save">
+      </form>
+      <br>
+      <a th:href="@{/admin/category/index}">Back to list</a>
+    </main>
+    <th:block th:replace="layoutadmin :: footer"></th:block>
+  </div>
+</div>
+</body>
+</html>
